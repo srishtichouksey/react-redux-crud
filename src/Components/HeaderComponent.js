@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {NavLink, NavItem, Navbar, Nav, Modal, ModalBody, ModalHeader, FormGroup, Form, Button, Label, Input} from 'reactstrap';
+import Users from './UsersComponent';
 
 export default class Header extends Component {
 
@@ -7,10 +8,12 @@ export default class Header extends Component {
         super(props);
 
          this.state = {
-             isModalOpen : false
+             isModalOpen : false,
+             islogin : false
          }
          this.toggalModal = this.toggalModal.bind(this); 
          this.handleSubmit = this.handleSubmit.bind(this);
+         //this.afterlogin = this.afterlogin.bind(this);
     }
 
     toggalModal() {
@@ -21,11 +24,24 @@ export default class Header extends Component {
 
     handleSubmit(event) {
         this.toggalModal();
-        alert("username: "+ this.username.value+"password: "+this.password.value);
-        event.preventDefault();
+        this.props.adminusers.map((user) =>{
+            if(user['name'] === this.username.value && user['password'] === this.password.value) {
+               alert('LOgged in succesfully');
+                this.setState({
+                    islogin:true
+                });
+            } else {
+                alert('UserName or Password Is Invalid');
+            }
+        })
+       event.preventDefault();
     }
 
     render() {
+        if(this.state.islogin === true) {
+           <Users adminname={this.username} />
+            
+        }
         return (
         <React.Fragment>
             <Navbar dark expand="md">

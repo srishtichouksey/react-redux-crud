@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Header from './HeaderComponent';
-import { fetchUser } from '../redux/ActionCreator';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { fetchUser } from '../redux/ActionCreator';
 
 const mapStateToProps = state => {
     return{
-        Admin: state.admin
+        admin: state.admin
     };
 }
 
@@ -21,9 +21,9 @@ class Main extends Component {
     }
 
     render() {
-        console.log(this.props);
+        //console.log(this.props.admin.adminusers);
         return (
-            <Header />
+            <Header adminusers = {this.props.admin.adminusers} />
         )
     };
 }
